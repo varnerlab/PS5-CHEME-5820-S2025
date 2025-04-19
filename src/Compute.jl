@@ -15,11 +15,11 @@ function convertcreditmix(s::Any)::Int64
     
     score = nothing;
     if (s == "Bad")
-        score = 1;
+        score = -1;
     elseif (s == "Standard")
-        score = 2;
+        score = 0;
     elseif (s == "Good")
-        score = 3;
+        score = 1;
     end
     return score;
 end
