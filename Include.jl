@@ -26,6 +26,9 @@ using OneHotArrays
 using Random
 using JLD2
 using Test
+using MLDatasets
+using Plots
+using Printf
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
