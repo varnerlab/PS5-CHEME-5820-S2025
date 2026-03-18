@@ -1,8 +1,8 @@
 # Autograder.jl — lightweight autograder for PS5: Autoencoders
 #
 # Scoring breakdown
-#   Auto-graded  (80 pts): P1a, P1b, P2a, P2b, P3a, P3b, P4b code
-#   Manually graded (20 pts): P1c (viz), P4a (report), P4b discussion (Q1-Q3)
+#   Auto-graded  (90 pts): P1a, P1b, P2a, P2b, P3a, P3b, P4b code, DQ1-DQ3 flags
+#   Manually graded (10 pts): DQ1-DQ3 answer quality (instructor review)
 
 mutable struct Grader
     results :: Vector{NamedTuple{(:problem,:description,:earned,:total),
@@ -62,6 +62,6 @@ function score!(g::Grader)
     end
     println("─"^56)
     @printf("  %-22s  %3d / %3d\n", "AUTO-GRADED TOTAL", e_total, t_total)
-    println("  (remaining 20 pts graded manually by instructor)")
+    println("  (remaining 10 pts: DQ answer quality, graded by instructor)")
     println("═"^56)
 end
