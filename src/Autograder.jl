@@ -1,8 +1,11 @@
 # Autograder.jl — lightweight autograder for PS5: Autoencoders
 #
-# Scoring breakdown
-#   Auto-graded  (90 pts): P1a, P1b, P2a, P2b, P3a, P3b, P4b code, DQ1-DQ3 flags
-#   Manually graded (10 pts): DQ1-DQ3 answer quality (instructor review)
+# Rubric scale (manual discussion review is separate)
+#   0 = nothing runs
+#   1 = errors, but at least one test passes
+#   2 = errors, but most tests pass (at least one error remains)
+#   3 = all tests pass, code runs
+#   4 = all tests pass/code runs + manual discussion review is good
 
 mutable struct Grader
     results :: Vector{NamedTuple{(:problem,:description,:earned,:total),
@@ -42,10 +45,13 @@ end
 
 Print a summary table of earned vs total points, grouped by problem.
 """
-function score!(g::Grader)
+function score!(g::Grader; discussion_ok::Bool=false)
     isempty(g.results) && (println("No checks run yet."); return)
     e_total  = sum(r.earned for r in g.results)
     t_total  = sum(r.total  for r in g.results)
+    n_pass   = count(r -> r.earned == r.total, g.results)
+    n_total  = length(g.results)
+    n_fail   = n_total - n_pass
     bar_w    = 12
 
     println()
@@ -62,6 +68,20 @@ function score!(g::Grader)
     end
     println("─"^56)
     @printf("  %-22s  %3d / %3d\n", "AUTO-GRADED TOTAL", e_total, t_total)
-    println("  (remaining 10 pts: DQ answer quality, graded by instructor)")
+    println("═"^56)
+
+    rubric_score = if n_total == 0 || n_pass == 0
+        0
+    elseif n_fail > 0 && n_pass >= 1
+        # Distinguish 1 vs 2 by whether most tests pass.
+        n_pass > (n_total ÷ 2) ? 2 : 1
+    else
+        discussion_ok ? 4 : 3
+    end
+
+    @printf("  RUBRIC SCORE: %d / 4\n", rubric_score)
+    @printf("  Tests passed: %d / %d\n", n_pass, n_total)
+    @printf("  Discussion review status: %s\n", discussion_ok ? "approved" : "pending/manual")
+    println("  Note: discussion answers are reviewed manually by instructors.")
     println("═"^56)
 end
