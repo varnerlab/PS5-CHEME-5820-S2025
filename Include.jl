@@ -3,6 +3,8 @@ const _ROOT = pwd();
 const _PATH_TO_DATA = joinpath(_ROOT, "data");
 const _PATH_TO_SRC = joinpath(_ROOT, "src");
 
+!isdir(_PATH_TO_DATA) && mkpath(_PATH_TO_DATA);
+
 # flag to check if the include file was called -
 const _DID_INCLUDE_FILE_GET_CALLED = true;
 
