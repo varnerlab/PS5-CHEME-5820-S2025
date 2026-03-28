@@ -1,4 +1,4 @@
-# Types.jl — type definitions for PS5: Autoencoders
+# Types.jl  -- type definitions for PS5: Autoencoders
 
 abstract type AbstractEncoderDecoderModel end
 
@@ -8,8 +8,8 @@ abstract type AbstractEncoderDecoderModel end
 Holds the encoder and decoder networks of a deterministic Autoencoder (AE).
 
 ## Fields
-- `encoder :: Chain`  — maps input `x` (D × N) to bottleneck code `z` (L × N)
-- `decoder :: Chain`  — maps bottleneck code `z` (L × N) to reconstruction `x̂` (D × N)
+- `encoder :: Chain`   -- maps input `x` (D × N) to bottleneck code `z` (L × N)
+- `decoder :: Chain`   -- maps bottleneck code `z` (L × N) to reconstruction `x̂` (D × N)
 
 ## Architecture (default)
 ```
@@ -18,7 +18,7 @@ Decoder:  L → 128 (relu) → 256 (relu) → D   (sigmoid output, constrains x�
 ```
 
 The encoder compresses each input into a low-dimensional code; the decoder attempts to
-reconstruct the original from that code alone.  Training minimises the mean-squared
+reconstruct the original from that code alone.  Training minimizes the mean-squared
 reconstruction error over the training set.
 """
 mutable struct MyAEModel <: AbstractEncoderDecoderModel

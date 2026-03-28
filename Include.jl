@@ -20,13 +20,15 @@ using PrettyTables
 using DataFrames
 using CSV
 using FileIO
+using Colors
 using Flux
 using NNlib
+using NNlib: upsample_bilinear
 using OneHotArrays
 using Random
 using JLD2
 using Test
-using MLDatasets
+using MLDatasets: FashionMNIST
 using Plots
 using Printf
 
